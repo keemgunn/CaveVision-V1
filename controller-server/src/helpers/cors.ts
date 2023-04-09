@@ -1,5 +1,5 @@
 import { internalIP } from "./ipAddress.js";
-import configs from "../configs/index.js";
+import configs from "../configs/configs.js";
 import type { CorsOptions } from "cors";
 const { PORT_FRONTEND_DEV, PORT_FRONTEND_PREVIEW } = configs.project.connection;
 
@@ -22,7 +22,7 @@ if (internalIP.includes(',')) {
 
 
 console.log('corsWhitelist: ',corsWhitelist);
-
+console.log('\n');
 
 export const corsOptions = {
 
