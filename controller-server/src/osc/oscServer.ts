@@ -24,7 +24,7 @@ oscServer.on('bundle', (bundle) => {
 
 oscServer.on('listening', () => {
   console.log("======== OSC SERVER RUNNING");
-  console.log(`Listening On PORT : ${internalIP}${FACE_OSC_PORT}\n`);
+  console.log(`Listening On PORT : ${internalIP}:${FACE_OSC_PORT}\n`);
 })
 
 export { oscServer } 

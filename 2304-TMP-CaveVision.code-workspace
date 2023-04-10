@@ -2,11 +2,15 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"name": "arduino-setup",
+			"path": "arduino-setup"
 		}
 	],
 	"settings": {
 		"workbench.preferredLightColorTheme": "Eva Light Italic",
-		"workbench.colorTheme": "Eva Dark Italic",
+		"workbench.colorTheme": "Eva Light Italic",
 		"workbench.preferredDarkColorTheme": "Eva Dark Italic",
 		"editor.tabSize": 2
 	}
