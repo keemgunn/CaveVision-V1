@@ -2,6 +2,7 @@ import { networkInterfaces } from 'os';
 
 console.log("======================================");
 console.log("==== CONTROLLER SERVER INITIATING ====");
+console.log("======================================");
 console.log("");
 const nets = networkInterfaces();
 const results = Object.create(null); // Or just '{}', an empty object

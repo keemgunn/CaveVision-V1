@@ -1,11 +1,13 @@
-import { io } from './socket/ioServer.js';
-import { useNamespace_chat } from './socket/namespaces/chat.js';
-import { oscServer } from './osc/oscServer.js';
-import serialPortController from './arduino/serialPort.js';
+import { useIOserver } from './socket/ioServer.js';
+import { useOSCserver } from './osc/oscServer.js';
+import { useFaceOSCstreamline } from './osc/faceOSC.js';
 
-oscServer;
+async function startServer() {
+  const { server, io, startListening } = useIOserver();
+  await startListening;
+  const osc = useOSCserver();
+  
+  useFaceOSCstreamline(osc);
+}
 
-serialPortController.test_drive();
-
-// USE SOCKET WITH SERVER
-useNamespace_chat(io);
+startServer();

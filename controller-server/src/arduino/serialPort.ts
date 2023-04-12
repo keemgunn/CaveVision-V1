@@ -2,7 +2,6 @@ import { SerialPort } from "serialport";
 import { SerialPortOpenOptions, ReadlineParser } from "serialport";
 import configs from "../configs/configs.js";
 
-
 const serialportOptions: SerialPortOpenOptions<any> = {
   path: configs.arduinoConnection.SERIAL_PORT_PATH,
   baudRate: 115200,
@@ -11,7 +10,13 @@ const serialportOptions: SerialPortOpenOptions<any> = {
   stopBits: 1,
 }
 
-const portInstance = new SerialPort(serialportOptions, (error) => {
+/**
+  IMPORTANT:
+  Note that when the serial port is opened, the Arduino tries to reset the sketch.
+  So the server has to wait for the Arduino to be ready before sending data.
+  */
+console.log('* Opening serial port...');
+const serialPortInstance = new SerialPort(serialportOptions, (error) => {
   if (error) {
     console.error("Error opening serial port:", error.message);
   } else {
@@ -19,48 +24,8 @@ const portInstance = new SerialPort(serialportOptions, (error) => {
   }
 });
 
-portInstance.pipe(new ReadlineParser({
+serialPortInstance.pipe(new ReadlineParser({
   delimiter: '\r\n',
 }));
 
-
-const portState = {
-  red_light: {
-    light: 0,
-  }
-}
-
-
-function test_on() {
-  portInstance.write("1\n");
-  portState.red_light.light = 1;
-  console.log(" - Red Light : ON");
-}
-function test_off() {
-  portInstance.write("0\n");
-  portState.red_light.light = 0;
-  console.log(" - Red Light : OFF");
-}
-function test_switch() {
-  if (portState.red_light.light)
-    test_off();
-  else
-    test_on();
-}
-function test_drive() {
-  const DELAY = 860;
-  test_switch();
-
-  setTimeout(() => {
-    test_drive();
-  }, DELAY);
-}  
-
-
-
-export default {
-  port: portInstance,
-  state: portState,
-  test_drive,
-  test_on,
-}
+export default serialPortInstance;
